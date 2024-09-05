@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNUTFORD APP</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url('images.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        body.no-background {
+            background-image: none !important;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .summary, .cumulative {
+            margin-top: 20px;
+        }
+        .login-form, .semester-year-selection, .result, .instructor-dashboard {
+            margin: 20px;
+        }
+        .instructor-dashboard {
+            display: none;
+        }
+        #loading {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 id="portalHeading">KNUTFORD RESULT PORTAL</h2>
+
+        <!-- Welcome message -->
+        <div id="welcomeMessage" class="welcome-message">
+            Hello, welcome to the KNUTFORD RESULT PORTAL.
+        </div>
+
+        <!-- Buttons for selecting STUDENT or INSTRUCTOR -->
+        <div id="roleSelection" style="display: block;">
+            <button id="studentButton" onclick="showStudentLoginForm()">STUDENT</button>
+            <button id="instructorButton" onclick="showInstructorLoginForm()">INSTRUCTOR</button>
+        </div>
+
+        <!-- Student Login Form -->
+        <div id="studentLoginForm" class="login-form" style="display: none;">
+            <form id="loginFormInner" onsubmit="return loginAsStudent()">
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username" required><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" required><br>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+
+        <!-- Instructor Login Form -->
+        <div id="instructorLoginForm" class="login-form" style="display: none;">
+            <form id="instructorLoginFormInner" onsubmit="return loginAsInstructor()">
+                <label for="instructorUsername">Username:</label><br>
+                <input type="text" id="instructorUsername" name="username" required><br>
+                <label for="instructorPassword">Password:</label><br>
+                <input type="password" id="instructorPassword" name="password" required><br>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+
+        <!-- Semester and Year Selection -->
+        <div id="semesterYearSelection" class="semester-year-selection" style="display: none;">
+            <label for="semesterSelect">Select Semester:</label>
+            <select id="semesterSelect">
+                <option value="semester1">Semester 1</option>
+                <option value="semester2">Semester 2</option>
+            </select>
+
+            <label for="yearSelect">Select Year:</label>
+            <select id="yearSelect">
+                <option value="1">Year 1</option>
+                <option value="2">Year 2</option>
+                <option value="3">Year 3</option>
+                <option value="4">Year 4</option>
+            </select>
+
+            <button id="showResultsButton" onclick="showResults()">Show Results</button>
+        </div>
+
+        <!-- Placeholder for displaying student results -->
+        <div id="result" class="result" style="display: none;">
+            <!-- Content will be dynamically updated -->
+        </div>
+
+        <!-- Instructor Dashboard -->
+        <div id="instructorDashboard" class="instructor-dashboard">
+            <h3>Instructor Dashboard</h3>
+            <div id="updateResultsSection">
+                <!-- Form to update results -->
+                <form id="updateResultsForm" onsubmit="return updateResults()">
+                    <label for="studentUsername">Student Username:</label><br>
+                    <input type="text" id="studentUsername" name="studentUsername" required><br>
+                    <label for="updateSemesterSelect">Select Semester:</label>
+                    <select id="updateSemesterSelect">
+                        <option value="semester1">Semester 1</option>
+                        <option value="semester2">Semester 2</option>
+                    </select>
+                    <label for="updateYearSelect">Select Year:</label>
+                    <select id="updateYearSelect">
+                        <option value="1">Year 1</option>
+                        <option value="2">Year 2</option>
+                        <option value="3">Year 3</option>
+                        <option value="4">Year 4</option>
+                    </select>
+                    <!-- Example course input for updating results -->
+                    <label for="courseName">Course Name:</label><br>
+                    <input type="text" id="courseName" name="courseName" required><br>
+                    <label for="courseGrade">Grade:</label><br>
+                    <input type="text" id="courseGrade" name="courseGrade" required><br>
+                    <label for="courseCredits">Credits:</label><br>
+                    <input type="number" id="courseCredits" name="courseCredits" required><br>
+                    <label for="courseScore">Score:</label><br>
+                    <input type="number" id="courseScore" name="courseScore" required><br>
+                    <input type="submit" value="Update Results">
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading indicator -->
+        <div id="loading" style="display: none;">
+            <p>Loading...</p>
+            <img src="loading.gif" alt="Loading">
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
+
+
+
